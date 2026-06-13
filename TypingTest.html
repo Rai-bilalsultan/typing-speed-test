@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Your Typing Skill in 1 Minute</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* DEEP DARK BACKGROUND SCHEME */
+            --bg-gradient: linear-gradient(135deg, #07080d 0%, #0c0e17 50%, #05060a 100%);
+            --accent-cyan: #00e5ff;
+            --accent-purple: #bd00ff;
+            --accent-green: #00ff87;
+            --accent-red: #ff3366;
+            --card-bg: rgba(13, 16, 28, 0.85);
+            --card-border: rgba(255, 255, 255, 0.04);
+            --text-main: #ffffff;
+            --text-muted: #626984;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 3rem;
+        }
+
+        /* Ambient Premium Glow Background Shapes */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            filter: blur(160px);
+            z-index: -1;
+            opacity: 0.25;
+        }
+        body::before {
+            top: 2%;
+            left: 5%;
+            background: var(--accent-purple);
+        }
+        body::after {
+            bottom: 20%;
+            right: 5%;
+            background: var(--accent-cyan);
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 4.5rem 1rem 3.5rem 1rem;
+        }
+
+        .hero-icon {
+            width: 65px;
+            height: 65px;
+            background: rgba(189, 0, 255, 0.08);
+            border: 1px solid rgba(189, 0, 255, 0.2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            box-shadow: 0 0 25px rgba(189, 0, 255, 0.2);
+        }
+
+        .hero-icon i {
+            font-size: 1.6rem;
+            color: #d666ff;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(to right, #ffffff, #d666ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 620px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #bd00ff, #00e5ff);
+            color: #000000;
+            border: none;
+            padding: 0.95rem 2.4rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(189, 0, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 229, 255, 0.5);
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3.5rem;
+        }
+
+        .badge-item .count {
+            font-size: 1.7rem;
+            font-weight: 700;
+            display: block;
+        }
+        .badge-item .count.cyan { color: var(--accent-cyan); }
+        .badge-item .count.blue { color: #00aaff; }
+        .badge-item .count.purple { color: var(--accent-purple); }
+
+        .badge-item .lbl {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+            display: block;
+        }
+
+        /* --- TEST INTERFACE AREA --- */
+        .test-section {
+            padding: 2rem 0;
+            scroll-margin-top: 30px;
+        }
+
+        .grid-header-title {
+            text-align: center;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        /* Difficulty Selection Grid */
+        .diff-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .diff-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .diff-box:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(20, 24, 41, 0.85);
+        }
+
+        .diff-box.active {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 135, 0.04);
+            box-shadow: 0 0 25px rgba(0, 255, 135, 0.08);
+        }
+
+        .diff-box.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        .diff-box-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            font-size: 1.15rem;
+        }
+
+        .diff-box:nth-child(1) .diff-box-icon { background: rgba(0, 255, 135, 0.06); color: var(--accent-green); }
+        .diff-box:nth-child(2) .diff-box-icon { background: rgba(0, 229, 255, 0.06); color: var(--accent-cyan); }
+        .diff-box:nth-child(3) .diff-box-icon { background: rgba(255, 51, 102, 0.06); color: var(--accent-red); }
+
+        .diff-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+
+        .diff-box p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        /* Main Workspace Board */
+        .workspace-holder {
+            position: relative;
+        }
+
+        .typing-panel-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Scoreboard Row */
+        .live-score-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-bottom: 1.5rem;
+        }
+
+        .score-tile {
+            text-align: center;
+        }
+
+        .score-tile i {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .score-tile .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.1rem;
+        }
+
+        .score-tile .label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Paragraph Content Layout Zone */
+        .paragraph-box {
+            font-size: 1.35rem;
+            line-height: 1.8;
+            color: #444a5e; /* Subdued un-typed text */
+            letter-spacing: 0.3px;
+            margin-bottom: 2.5rem;
+            user-select: none;
+            max-height: 160px;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        /* Highlighting Logic Classes */
+        .word {
+            display: inline-block;
+            margin-right: 9px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .word.active-current {
+            color: #ffffff;
+            border-bottom-color: var(--accent-purple);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .word.match-success {
+            color: var(--accent-green);
+        }
+
+        .word.match-error {
+            color: var(--accent-red);
+            border-bottom-color: var(--accent-red);
+        }
+
+        /* --- VISIBLE INPUT BOX LAYOUT (`image_edfc9f.png` style) --- */
+        .input-bar-container {
+            width: 100%;
+            position: relative;
+        }
+
+        .interactive-typing-input {
+            width: 100%;
+            background: #06070a;
+            border: 2px solid rgba(189, 0, 255, 0.25);
+            border-radius: 12px;
+            padding: 1.1rem 1.5rem;
+            font-size: 1.15rem;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .interactive-typing-input:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(189, 0, 255, 0.25), inset 0 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .interactive-typing-input::placeholder {
+            color: #353a4a;
+        }
+
+        /* --- RESULTS OVERLAY SCREEN --- */
+        .overlay-results-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6, 7, 10, 0.98);
+            border: 1px solid rgba(189, 0, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.97);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .overlay-results-card.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .overlay-results-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .overlay-results-card .quote {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .stats-summary-flex {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 720px;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-result-box {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 1.3rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-result-box .num {
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: block;
+        }
+        .stat-result-box .num.glow { color: var(--accent-cyan); }
+
+        .stat-result-box .lbl {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .button-group-row {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* --- PRACTICE/TRAINING SECTION --- */
+        .practice-section {
+            margin-top: 5.5rem;
+            padding-top: 3.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .practice-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .practice-intro .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(0, 229, 255, 0.05);
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem auto;
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .practice-intro h2 {
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .practice-intro p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        .training-cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .train-block {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .train-block:hover {
+            transform: translateY(-3px);
+            border-color: rgba(189, 0, 255, 0.2);
+            background: rgba(18, 21, 36, 0.85);
+        }
+
+        .train-block h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+        }
+
+        .train-block h4 i {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .train-block:hover h4 i {
+            color: var(--accent-cyan);
+        }
+
+        .train-block p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* Footer info */
+        .app-footer {
+            text-align: center;
+            margin-top: 5rem;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        /* Responsive Setup */
+        @media (max-width: 768px) {
+            .diff-selection-grid, .training-cards-container, .live-score-grid, .stats-summary-flex {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2.2rem; }
+            .hero-badges { flex-direction: column; gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HERO MAIN MODULE -->
+        <header class="hero">
+            <div class="hero-icon">
+                <i class="fa-solid fa-keyboard"></i>
+            </div>
+            <h1><span>Check Your Typing Skill in 1 Minute</span></h1>
+            <p>Test your typing speed, accuracy and improve your typing skills with our smart typing trainer.</p>
+            <button class="btn-primary" onclick="jumpToWorkspace()">Start Typing Test</button>
+
+            <div class="hero-badges">
+                <div class="badge-item">
+                    <span class="count cyan">60s</span>
+                    <span class="lbl">Quick Test</span>
+                </div>
+                <div class="badge-item">
+                    <span class="count blue">Real-time</span>
+                    <span class="lbl">Feedback</span>
+                </div>
+                <div class="badge-item">
+                    <span class="count purple">Accurate</span>
+                    <span class="lbl">Results</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- TYPING WORKSPACE ENGINE -->
+        <main id="typing-board" class="test-section">
+            
+            <h3 class="grid-header-title">Select a difficulty level to begin your typing test</h3>
+            
+            <!-- DIFFICULTY SELECTOR MODULE -->
+            <div class="diff-selection-grid">
+                <div class="diff-box active" onclick="setMode('easy', this)">
+                    <div class="diff-box-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Easy</h3>
+                    <p>Simple words and short sentences</p>
+                </div>
+                <div class="diff-box" onclick="setMode('medium', this)">
+                    <div class="diff-box-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3>Medium</h3>
+                    <p>Normal paragraphs with moderate vocabulary</p>
+                </div>
+                <div class="diff-box" onclick="setMode('hard', this)">
+                    <div class="diff-box-icon"><i class="fa-solid fa-fire"></i></div>
+                    <h3>Hard</h3>
+                    <p>Complex paragraphs with longer words</p>
+                </div>
+            </div>
+
+            <!-- CARD INTERFACE -->
+            <div class="workspace-holder">
+                
+                <div class="typing-panel-card">
+                    
+                    <!-- Live Analytics Dashboard Row -->
+                    <div class="live-score-grid">
+                        <div class="score-tile">
+                            <i class="fa-regular fa-clock"></i>
+                            <span class="value" id="live-timer">60s</span>
+                            <span class="label">Time Left</span>
+                        </div>
+                        <div class="score-tile">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <span class="value" id="live-wpm">0</span>
+                            <span class="label">WPM</span>
+                        </div>
+                        <div class="score-tile">
+                            <i class="fa-solid fa-bullseye"></i>
+                            <span class="value" id="live-accuracy">100%</span>
+                            <span class="label">Accuracy</span>
+                        </div>
+                        <div class="score-tile">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <span class="value" id="live-mistakes" style="color: var(--accent-red);">0</span>
+                            <span class="label">Mistakes</span>
+                        </div>
+                    </div>
+
+                    <!-- Paragraph Box Renderer -->
+                    <div class="paragraph-box" id="paragraph-render-target">
+                        <!-- Words will be injected dynamically here -->
+                    </div>
+
+                    <!-- VISIBLE TYPING INPUT BOX ROW (As per image_edfc9f.png) -->
+                    <div class="input-bar-container">
+                        <input type="text" 
+                               class="interactive-typing-input" 
+                               id="main-typing-field" 
+                               placeholder="Start typing here..." 
+                               autocomplete="off">
+                    </div>
+
+                </div>
+
+                <!-- END MODAL SUMMARY OVERLAY -->
+                <div class="overlay-results-card" id="results-card-window">
+                    <h2>Test Completed!</h2>
+                    <p class="quote" id="feedback-message">Great job! Keep practicing to improve your typing speed.</p>
+                    
+                    <div class="stats-summary-flex">
+                        <div class="stat-result-box">
+                            <span class="num glow" id="res-score-wpm">0</span>
+                            <span class="lbl">Typing Speed (WPM)</span>
+                        </div>
+                        <div class="stat-result-box">
+                            <span class="num" id="res-score-accuracy">100%</span>
+                            <span class="lbl">Accuracy Percentage</span>
+                        </div>
+                        <div class="stat-result-box">
+                            <span class="num" id="res-score-mistakes" style="color: var(--accent-red);">0</span>
+                            <span class="lbl">Total Mistakes</span>
+                        </div>
+                        <div class="stat-result-box">
+                            <span class="num" id="res-score-chars">0</span>
+                            <span class="lbl">Characters Typed</span>
+                        </div>
+                    </div>
+
+                    <div class="button-group-row">
+                        <button class="btn-primary" onclick="restartEngine()">Try Again</button>
+                        <button class="btn-secondary" onclick="jumpToTraining()">Train Typing Skill</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- TRAINING SECTION MODULE -->
+        <section id="training-rack" class="practice-section">
+            <div class="practice-intro">
+                <div class="icon-wrapper"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h2>Train Your Typing Skill</h2>
+                <p>Practice without pressure. Click any paragraph to start typing.</p>
+            </div>
+
+            <div class="training-cards-container">
+                <div class="train-block" onclick="importPracticeText('Learning new skills requires dedication and consistent practice. Whether you are mastering a musical instrument or improving your typing speed, patience and perseverance are essential.')">
+                    <h4><i class="fa-regular fa-bookmark"></i> Foundation Skills</h4>
+                    <p>Learning new skills requires dedication and consistent practice. Whether you are mastering a musical instrument or improving your typing speed, patience and perseverance are essential.</p>
+                </div>
+                <div class="train-block" onclick="importPracticeText('Technology continues to evolve at an unprecedented pace, transforming the way we live, work, and communicate. Innovation drives progress and opens new possibilities.')">
+                    <h4><i class="fa-regular fa-bookmark"></i> Tech Evolution</h4>
+                    <p>Technology continues to evolve at an unprecedented pace, transforming the way we live, work, and communicate. Innovation drives progress and opens new possibilities.</p>
+                </div>
+                <div class="train-block" onclick="importPracticeText('The quick brown fox jumps over the lazy dog. This ancient sentence contains every letter of the alphabet and remains ideal for standard typing diagnostic evaluations.')">
+                    <h4><i class="fa-regular fa-bookmark"></i> The Alphabet Run</h4>
+                    <p>The quick brown fox jumps over the lazy dog. This ancient sentence contains every letter of the alphabet and remains ideal for standard typing diagnostic evaluations.</p>
+                </div>
+                <div class="train-block" onclick="importPracticeText('In today\'s digital ecosystem, effective communication through precision typing has become essential. Every small milestone directly contributes to your professional success.')">
+                    <h4><i class="fa-regular fa-bookmark"></i> Digital Ecosystems</h4>
+                    <p>In today's digital ecosystem, effective communication through precision typing has become essential. Every small milestone directly contributes to your professional success.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            &copy; 2026 Typing Speed Test &bull; Optimized Charcoal Edition
+        </footer>
+
+    </div>
+
+    <!-- CORE LOGIC ENGINE SCRIPT -->
+    <script>
+        const contentPool = {
+            easy: [
+                "Learning new skills requires dedication and consistent practice. Whether you are mastering a musical instrument or improving your typing speed, patience and perseverance are essential. Every small step forward contributes to your overall progress and success.",
+                "The sun is shining bright in the clear sky. Birds are singing beautiful songs. It is a wonderful day to walk in the green park.",
+                "I like to read books every day. Reading helps me learn new things. Books take me to amazing places. Stories make me happy and excited."
+            ],
+            medium: [
+                "Developing good habits early in life can lay a solid foundation for future success. Regular exercise and balanced nutrition play vital roles in maintaining overall mental clarity.",
+                "The advancement of digital communication technologies has effectively bridged global gaps, allowing instant interactions across continents. However, balancing screen time remains crucial."
+            ],
+            hard: [
+                "The labyrinthine architecture of modern software ecosystems demands an exceptionally deep comprehension of structural design patterns, architectural paradigms, and asynchronous data pipelines.",
+                "Quantum computing utilizes fundamental principles of superposition and entanglement, radically outperforming classical computational models when processing encrypted multi-layered calculations."
+            ]
+        };
+
+        let activeDifficulty = 'easy';
+        let rawParagraphText = "";
+        let splitWords = [];
+        let indexPointer = 0;
+
+        let timeLeft = 60;
+        let countdownRef = null;
+        let executionFlag = false;
+        let misstepsCount = 0;
+        let keysStrokeCount = 0;
+
+        // Dom Elements Fetch
+        const targetRender = document.getElementById('paragraph-render-target');
+        const mainInput = document.getElementById('main-typing-field');
+        const uiTimer = document.getElementById('live-timer');
+        const uiWpm = document.getElementById('live-wpm');
+        const uiAcc = document.getElementById('live-accuracy');
+        const uiMistakes = document.getElementById('live-mistakes');
+        const windowOverlay = document.getElementById('results-card-window');
+
+        function jumpToWorkspace() {
+            document.getElementById('typing-board').scrollIntoView({ behavior: 'smooth' });
+            mainInput.focus();
+        }
+
+        function jumpToTraining() {
+            windowOverlay.classList.remove('show');
+            document.getElementById('training-rack').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function initializeTextLoad() {
+            const list = contentPool[activeDifficulty];
+            rawParagraphText = list[Math.floor(Math.random() * list.length)];
+            compileWordsLayout(rawParagraphText);
+        }
+
+        function compileWordsLayout(text) {
+            splitWords = text.split(" ");
+            targetRender.innerHTML = splitWords.map((word, i) => {
+                return `<span class="word ${i === 0 ? 'active-current' : ''}" id="w-id-${i}">${word}</span>`;
+            }).join("");
+            indexPointer = 0;
+            mainInput.value = "";
+        }
+
+        function setMode(mode, hostNode) {
+            if (executionFlag) {
+                if(!confirm("Reset current progress to switch difficulty?")) return;
+                restartEngine();
+            }
+            activeDifficulty = mode;
+            document.querySelectorAll('.diff-box').forEach(node => node.classList.remove('active'));
+            hostNode.classList.add('active');
+            initializeTextLoad();
+        }
+
+        function importPracticeText(text) {
+            restartEngine();
+            rawParagraphText = text;
+            compileWordsLayout(text);
+            document.getElementById('typing-board').scrollIntoView({ behavior: 'smooth' });
+            mainInput.focus();
+        }
+
+        // Processing Input Engine Streams
+        mainInput.addEventListener('input', () => {
+            const val = mainInput.value;
+
+            // First stroke trigger
+            if (!executionFlag && timeLeft > 0 && val.length > 0) {
+                startCountdownTracker();
+            }
+
+            if (!executionFlag) return;
+
+            const nodeWord = document.getElementById(`w-id-${indexPointer}`);
+            if (!nodeWord) return;
+
+            const targetWordMatch = splitWords[indexPointer];
+
+            // Sub-word parsing indicator rule (Red highlight immediately on wrong key)
+            if (!targetWordMatch.startsWith(val.trim()) && val.trim().length > 0) {
+                nodeWord.className = "word active-current match-error";
+            } else {
+                nodeWord.className = "word active-current";
+            }
+
+            // Word finalized trigger on Spacebar press
+            if (val.endsWith(" ")) {
+                const standardInput = val.trim();
+
+                if (standardInput === targetWordMatch) {
+                    nodeWord.className = "word match-success";
+                    keysStrokeCount += targetWordMatch.length + 1;
+                } else {
+                    nodeWord.className = "word match-error";
+                    misstepsCount++;
+                    keysStrokeCount += standardInput.length + 1;
+                }
+
+                indexPointer++;
+
+                if (indexPointer >= splitWords.length) {
+                    refreshScores();
+                    terminateSession();
+                    return;
+                }
+
+                const subsequentNode = document.getElementById(`w-id-${indexPointer}`);
+                if (subsequentNode) {
+                    subsequentNode.classList.add('active-current');
+                }
+
+                mainInput.value = "";
+            }
+
+            refreshScores();
+        });
+
+        function refreshScores() {
+            const timePassed = 60 - timeLeft;
+            let computedWpm = 0;
+            if (timePassed > 0) {
+                computedWpm = Math.round((keysStrokeCount / 5) / (timePassed / 60));
+            }
+            uiWpm.innerText = computedWpm;
+            uiMistakes.innerText = misstepsCount;
+
+            let computedAccuracy = 100;
+            if (indexPointer > 0) {
+                computedAccuracy = Math.round(((indexPointer - misstepsCount) / indexPointer) * 100);
+                if (computedAccuracy < 0) computedAccuracy = 0;
+            }
+            uiAcc.innerText = `${computedAccuracy}%`;
+        }
+
+        function startCountdownTracker() {
+            executionFlag = true;
+            countdownRef = setInterval(() => {
+                timeLeft--;
+                uiTimer.innerText = `${timeLeft}s`;
+                refreshScores();
+
+                if (timeLeft <= 0) {
+                    terminateSession();
+                }
+            }, 1000);
+        }
+
+        function terminateSession() {
+            clearInterval(countdownRef);
+            executionFlag = false;
+            mainInput.blur();
+
+            const finalWpm = uiWpm.innerText;
+            const finalAcc = uiAcc.innerText;
+
+            document.getElementById('res-score-wpm').innerText = finalWpm;
+            document.getElementById('res-score-accuracy').innerText = finalAcc;
+            document.getElementById('res-score-mistakes').innerText = misstepsCount;
+            document.getElementById('res-score-chars').innerText = keysStrokeCount;
+
+            const msgNode = document.getElementById('feedback-message');
+            const numWpm = parseInt(finalWpm);
+            if(numWpm >= 55) {
+                msgNode.innerText = "Exceptional speed! You type like an absolute master.";
+            } else if(numWpm >= 35) {
+                msgNode.innerText = "Excellent speed! Highly competent processing rates. Keep optimizing.";
+            } else {
+                msgNode.innerText = "Great job! Consistent daily practices will drastically accelerate your typing scores.";
+            }
+
+            windowOverlay.classList.add('show');
+        }
+
+        function restartEngine() {
+            clearInterval(countdownRef);
+            timeLeft = 60;
+            misstepsCount = 0;
+            keysStrokeCount = 0;
+            executionFlag = false;
+
+            uiTimer.innerText = "60s";
+            uiWpm.innerText = "0";
+            uiAcc.innerText = "100%";
+            uiMistakes.innerText = "0";
+
+            windowOverlay.classList.remove('show');
+            initializeTextLoad();
+            mainInput.focus();
+        }
+
+        window.onload = () => {
+            initializeTextLoad();
+        };
+    </script>
+</body>
+</html>
