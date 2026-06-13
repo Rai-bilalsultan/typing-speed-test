@@ -1,4 +1,4 @@
-# typing-speedtest 
+# typing-speed-test 
 
 A modern and interactive typing speed test application built with HTML, CSS, and JavaScript. The application helps users evaluate and improve their typing skills through timed challenges, real-time performance tracking, and practice exercises.
 
